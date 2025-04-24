@@ -1,0 +1,43 @@
+Fixes for 64-bit off_t and time_t on ILP32 platforms
+--- kvsns-1.2.9/kvsns_shell/kvsns_busybox.c.orig	2020-08-04 15:22:18.000000000 +0200
++++ kvsns-1.2.9/kvsns_shell/kvsns_busybox.c	2025-04-24 20:34:57.734065107 +0200
+@@ -334,26 +334,26 @@ int main(int argc, char *argv[])
+ 
+ 		rc = kvsns_getattr(&cred, &ino, &buffstat);
+ 		if (rc == 0) {
+-			printf(" inode: %ld\n", buffstat.st_ino);
++			printf(" inode: %lld\n", (long long)buffstat.st_ino);
+ 			printf(" mode: %o\n", buffstat.st_mode);
+ 			printf(" number of hard links: %d\n",
+ 			       (int)buffstat.st_nlink);
+ 			printf(" user ID of owner: %d\n", buffstat.st_uid);
+ 			printf(" group ID of owner: %d\n", buffstat.st_gid);
+-			printf(" total size, in bytes: %ld\n",
+-			       buffstat.st_size);
+-			printf(" blocksize for filesystem I/O: %ld\n",
+-				buffstat.st_blksize);
+-			printf(" number of blocks allocated: %ld\n",
+-				buffstat.st_blocks);
+-			printf(" time of last access: %ld : %s",
+-				buffstat.st_atime,
++			printf(" total size, in bytes: %lld\n",
++			       (long long)buffstat.st_size);
++			printf(" blocksize for filesystem I/O: %lld\n",
++				(long long)buffstat.st_blksize);
++			printf(" number of blocks allocated: %lld\n",
++				(long long)buffstat.st_blocks);
++			printf(" time of last access: %lld : %s",
++				(long long)buffstat.st_atime,
+ 				ctime(&buffstat.st_atime));
+-			printf(" time of last modification: %ld : %s",
+-				 buffstat.st_mtime,
++			printf(" time of last modification: %lld : %s",
++				 (long long)buffstat.st_mtime,
+ 				 ctime(&buffstat.st_mtime));
+-			printf(" time of last change: %ld : %s",
+-				buffstat.st_ctime,
++			printf(" time of last change: %lld : %s",
++				(long long)buffstat.st_ctime,
+ 				 ctime(&buffstat.st_ctime));
+ 
+ 			return 0;
