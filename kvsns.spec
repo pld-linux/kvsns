@@ -15,6 +15,7 @@ Source0:	https://github.com/phdeniel/kvsns/archive/V%{version}/%{name}-%{version
 Patch0:		%{name}-overflow.patch
 Patch1:		%{name}-format.patch
 Patch2:		%{name}-cmake.patch
+Patch3:		%{name}-types.patch
 URL:		https://github.com/phdeniel/kvsns
 %{?with_ceph:BuildRequires:	ceph-devel}
 BuildRequires:	cmake >= 2.6.4
@@ -62,13 +63,14 @@ Pliki nagłówkowe biblioteki KVSNS.
 %patch -P0 -p1
 %patch -P1 -p1
 %patch -P2 -p1
+%patch -P3 -p1
 
 %build
 # meson support is incomplete (no required include directories, no install), so use cmake
 install -d build
 cd build
 # possible snprint or strncpy truncations
-CFLAGS="%{rpmcflags} -Wno-error=format-truncation -Wno-error=stringop-truncation"
+CFLAGS="%{rpmcflags} -Wno-error=format-truncation -Wno-error=stringop-truncation -D_FILE_OFFSET_BITS=64"
 %cmake ..
 
 %{__make}
