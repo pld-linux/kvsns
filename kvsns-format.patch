@@ -1,0 +1,20 @@
+--- kvsns-1.2.9/extstore/crud_cache/extstore_crud_cache.c.orig	2020-08-04 15:22:18.000000000 +0200
++++ kvsns-1.2.9/extstore/crud_cache/extstore_crud_cache.c	2025-04-23 19:15:39.783178251 +0200
+@@ -217,7 +217,7 @@ int extstore_create(kvsns_ino_t object)
+ 	RC_WRAP(kvsal.set_stat, k, &stat);
+ 
+ 	snprintf(k, KLEN, "%llu.cache_state", object);
+-	snprintf(v, VLEN, state2str(CACHED));
++	strcpy(v, state2str(CACHED));
+ 	RC_WRAP(kvsal.set_char, k, v);
+ 
+ 	return 0;
+@@ -238,7 +238,7 @@ int extstore_attach(kvsns_ino_t *ino, ch
+ 	RC_WRAP(kvsal.set_stat, k, &stat);
+ 
+ 	snprintf(k, KLEN, "%llu.cache_state", *ino);
+-	snprintf(v, VLEN, state2str(CACHED));
++	strcpy(v, state2str(CACHED));
+ 	RC_WRAP(kvsal.set_char, k, v);
+ 
+ 	RC_WRAP(set_entry_state, ino, CACHED);

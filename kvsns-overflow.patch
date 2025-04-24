@@ -1,0 +1,31 @@
+--- kvsns-1.2.9/extstore/crud_cache/objstore_cmd.c.orig	2020-08-04 15:22:18.000000000 +0200
++++ kvsns-1.2.9/extstore/crud_cache/objstore_cmd.c	2025-04-23 19:24:54.986649997 +0200
+@@ -61,7 +61,7 @@ int objstore_put(char *path, kvsns_ino_t
+ {
+ 	char k[KLEN];
+ 	char storepath[MAXPATHLEN];
+-	char objpath[MAXPATHLEN];
++	char objpath[MAXPATHLEN + 9];
+ 	char cmd[3*MAXPATHLEN];
+ 	FILE *fp;
+ 
+--- kvsns-1.2.9/kvsns_shell/kvsns_cp.c.orig	2020-08-04 15:22:18.000000000 +0200
++++ kvsns-1.2.9/kvsns_shell/kvsns_cp.c	2025-04-23 19:29:03.955191218 +0200
+@@ -88,8 +88,6 @@ int main(int argc, char *argv[])
+ 		dest = argv[2] + KVSNS_URL_LEN;
+ 	}
+ 
+-	printf("%s => %s, %u / %u\n", src, dest, kvsns_src, kvsns_dest);
+-
+ 	if (kvsns_src && kvsns_dest) {
+ 		fprintf(stderr, "src and destination can't be inside KVSNS\n");
+ 		exit(1);
+@@ -100,6 +98,8 @@ int main(int argc, char *argv[])
+ 		exit(1);
+ 	}
+ 
++	printf("%s => %s, %u / %u\n", src, dest, kvsns_src, kvsns_dest);
++
+ 	if (!kvsns_dest)
+ 		fd = open(dest, O_WRONLY|O_CREAT, 0644);
+ 

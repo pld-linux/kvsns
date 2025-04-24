@@ -1,0 +1,77 @@
+--- kvsns-1.2.9/libkvsns.pc-in.cmake.orig	2020-08-04 15:22:18.000000000 +0200
++++ kvsns-1.2.9/libkvsns.pc-in.cmake	2025-04-23 20:02:04.907192810 +0200
+@@ -1,12 +1,12 @@
+ prefix=/usr
+ exec_prefix=/usr/bin
+-libdir=/usr/lib64
++libdir=@CMAKE_INSTALL_LIBDIR@
+ includedir=/usr/include
+ 
+ Name: @PROJECT_NAME@
+ Description: Library to access to a namespace inside a KVS
+ Requires:
+ Version: @LIBKVSNS_BASE_VERSION@
+-Cflags: -I/usr/include
+-Libs: -L/usr/lib64 -lkvsns -lhiredis
++Cflags: -I${includedir}
++Libs: -L${libdir} -lkvsns
+ 
+--- kvsns-1.2.9/CMakeLists.txt.orig	2020-08-04 15:22:18.000000000 +0200
++++ kvsns-1.2.9/CMakeLists.txt	2025-04-23 20:02:27.501102746 +0200
+@@ -139,5 +139,5 @@ add_custom_command(TARGET srpm
+                   DEPENDS dist)
+ 
+ # INSTALL
+-install(FILES ${PROJECT_SOURCE_DIR}/libkvsns.pc DESTINATION lib)
++install(FILES ${PROJECT_SOURCE_DIR}/libkvsns.pc DESTINATION lib${LIB_SUFFIX}/pkgconfig)
+ install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/kvsns DESTINATION include)
+--- kvsns-1.2.9/extstore/crud_cache/CMakeLists.txt.orig	2020-08-04 15:22:18.000000000 +0200
++++ kvsns-1.2.9/extstore/crud_cache/CMakeLists.txt	2025-04-23 20:04:21.723818182 +0200
+@@ -6,7 +6,7 @@ SET(extstore_crud_cache_LIB_SRCS
+ add_library(extstore_crud_cache SHARED ${extstore_crud_cache_LIB_SRCS})
+ target_link_libraries(extstore_crud_cache ini_config)
+ 
+-install(TARGETS extstore_crud_cache DESTINATION lib)
++install(TARGETS extstore_crud_cache DESTINATION lib${LIB_SUFFIX})
+ 
+ 
+ SET(objstore_cmd_LIB_SRCS
+@@ -16,4 +16,4 @@ SET(objstore_cmd_LIB_SRCS
+ add_library(objstore_cmd SHARED ${objstore_cmd_LIB_SRCS})
+ target_link_libraries(objstore_cmd ini_config)
+ 
+-install(TARGETS objstore_cmd DESTINATION lib)
++install(TARGETS objstore_cmd DESTINATION lib${LIB_SUFFIX})
+--- kvsns-1.2.9/extstore/posix_store/CMakeLists.txt.orig	2020-08-04 15:22:18.000000000 +0200
++++ kvsns-1.2.9/extstore/posix_store/CMakeLists.txt	2025-04-23 20:04:32.673738961 +0200
+@@ -7,4 +7,4 @@ add_library(extstore_posix SHARED ${exts
+ 
+ target_link_libraries(extstore_posix ini_config)
+ 
+-install(TARGETS extstore_posix DESTINATION lib)
++install(TARGETS extstore_posix DESTINATION lib${LIB_SUFFIX})
+--- kvsns-1.2.9/extstore/rados/CMakeLists.txt.orig	2020-08-04 15:22:18.000000000 +0200
++++ kvsns-1.2.9/extstore/rados/CMakeLists.txt	2025-04-23 20:04:46.180352556 +0200
+@@ -6,4 +6,4 @@ SET(extstore_rados_LIB_SRCS
+ add_library(extstore_rados SHARED ${extstore_rados_LIB_SRCS})
+ target_link_libraries(extstore_rados rados ini_config)
+ 
+-install(TARGETS extstore_rados DESTINATION lib)
++install(TARGETS extstore_rados DESTINATION lib${LIB_SUFFIX})
+--- kvsns-1.2.9/kvsal/redis/CMakeLists.txt.orig	2020-08-04 15:22:18.000000000 +0200
++++ kvsns-1.2.9/kvsal/redis/CMakeLists.txt	2025-04-23 20:05:12.405877041 +0200
+@@ -6,4 +6,4 @@ SET(kvsal_LIB_SRCS
+ add_library(kvsal_redis SHARED ${kvsal_LIB_SRCS})
+ target_link_libraries(kvsal_redis hiredis ini_config)
+ 
+-install(TARGETS kvsal_redis DESTINATION lib)
++install(TARGETS kvsal_redis DESTINATION lib${LIB_SUFFIX})
+--- kvsns-1.2.9/kvsns/CMakeLists.txt.orig	2020-08-04 15:22:18.000000000 +0200
++++ kvsns-1.2.9/kvsns/CMakeLists.txt	2025-04-23 20:05:27.453452194 +0200
+@@ -9,5 +9,5 @@ SET(kvsns_LIB_SRCS
+ 
+ add_library(kvsns SHARED ${kvsns_LIB_SRCS})
+ target_link_libraries(kvsns ini_config dl)
+-install(TARGETS kvsns DESTINATION lib)
++install(TARGETS kvsns DESTINATION lib${LIB_SUFFIX})
+ 
