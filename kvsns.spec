@@ -6,7 +6,7 @@ Summary:	Library to access to a namespace inside a KVS
 Summary(pl.UTF-8):	Biblioteka dostępu do przestrzeni nazw wewnątrz KVS
 Name:		kvsns
 Version:	1.2.9
-Release:	1
+Release:	2
 License:	LGPL v3+
 Group:		Libraries
 #Source0Download: https://github.com/phdeniel/kvsns/tags
