@@ -6,7 +6,7 @@ Summary:	Library to access to a namespace inside a KVS
 Summary(pl.UTF-8):	Biblioteka dostępu do przestrzeni nazw wewnątrz KVS
 Name:		kvsns
 Version:	1.2.9
-Release:	2
+Release:	3
 License:	LGPL v3+
 Group:		Libraries
 #Source0Download: https://github.com/phdeniel/kvsns/tags
@@ -93,16 +93,16 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc doc/kvsns_*.txt
-%attr(755,root,root) %{_libdir}/libextstore_crud_cache.so
-%attr(755,root,root) %{_libdir}/libextstore_posix.so
-%attr(755,root,root) %{_libdir}/libkvsal_redis.so
-%attr(755,root,root) %{_libdir}/libkvsns.so
-%attr(755,root,root) %{_libdir}/libobjstore_cmd.so
+%{_libdir}/libextstore_crud_cache.so
+%{_libdir}/libextstore_posix.so
+%{_libdir}/libkvsal_redis.so
+%{_libdir}/libkvsns.so
+%{_libdir}/libobjstore_cmd.so
 
 %if %{with ceph}
 %files ceph
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libextstore_rados.so
+%{_libdir}/libextstore_rados.so
 %endif
 
 %files devel
